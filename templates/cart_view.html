@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block xtra_head_links %}
+<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+{% endblock %}
+<body>
+{% block carousel %}
+<section class="text-center" style="height: 100px; margin-top: 1rem">
+    <div class="container">
+        <h2 class="">Shopping Cart</h2>
+     </div>
+</section>
+<div class="container" style="padding-right: 0; padding-left: 0">
+    <div class="row" style="padding: 0.25rem">
+        <div class="col-md-12">
+            <div class="table-responsive" style="">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col" class="">Quantity</th>
+                            <th scope="col" class="text-right">Price</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in order_items %}
+                        <tr>
+                            <td>{{item.product.name}}</td>
+                            <td style="display: flex">
+                                <a href="{% url 'increase_quantity' item.id %}" style="padding: 0.5rem">
+                                    <i class="fas fa-plus"></i>
+                                </a>
+                                <input class="form-control text-center" style="width:50px" type="text" value="{{item.quantity}}"/>
+                                <a href="{% url 'reduce_quantity' item.id %}" style="padding: 0.5rem">
+                                    <i class="fas fa-minus"></i>
+                                </a>
+                            </td>
+                            <td class="text-right">#{{item.getOrderedProductTotalPrice}}</td>
+                            <td class="text-right"><a href="{% url 'remove_from_cart' item.id %}"><button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i></button></a></td>
+                        </tr>
+                    {% empty %}
+                    <h4 class="text-center" style="color: black">No Item In cart</h4>
+                    {% endfor %}
+                    {% if messages %}
+                    <ul class="messages text-center" style="margin-top: 1rem">
+                        {% for message in messages %}
+                        <li class="alert-success" ><p style="color: black">{{ message }}</p></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-between" style="width: 100%;">
+                    <span><strong>Total (NGN)</strong></span>
+                    <strong>
+                        #{{sp_order.getOrderTotalPrice}}
+                    </strong>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-2">
+            <div class="row" style="margin-top: 1.5rem">
+                <div class="col-sm-12  col-md-6" style="padding: 2px">
+                    <a href="{% url 'home' %}"><button class="btn btn-block btn-md btn-info shadow">Continue Shopping</button></a>
+                </div>
+                <div class="col-sm-12 col-md-6 text-right" style="padding: 2px">
+                    <a href="{% url 'checkout' %}"><button class="btn btn-block btn-md btn-warning shadow">Proceed To Checkout</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+    </div>
+{% endblock %}
+</body>

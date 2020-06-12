@@ -1,0 +1,82 @@
+{% extends 'new_base.html' %}
+{% load static %}
+
+  <body class="bg-light">
+  {% block content %}
+  <div class="container" style="margin-top: 7rem">
+      <div class="text-center" style="padding: 2rem;">
+        <h2  style="">Checkout form</h2>
+      </div>
+      <div class="row">
+        <div class="col-md-4 order-md-2 mb-4 ">
+          <div class="shadow bg-white">
+              <div class="" style="padding: 2rem;">
+                  <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Cart Summary</span>
+            <span class="badge badge-secondary bg-danger">{{sp_order.getOrderTotalItems}}</span>
+          </h4>
+          <ul class="list-group mb-3">
+            {% for item in items %}
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <h6 class="my-0">{{item.Item.name}}</h6>
+              </div>
+              <span class="text-muted">#{{item.get_item_total_price}}</span>
+            </li>
+            {% endfor %}
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Total (NGN)</span>
+              <strong>#{{sp_order.get_order_total}}</strong>
+            </li>
+          </ul>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-8 order-md-1 shadow bg-white" style="padding: 2rem;">
+            <div class="wrap" style="padding: 2rem">
+                <h4 class="mb-3">Delivery address</h4>
+          <form class="" method="post">
+              {% csrf_token %}
+            <div class="mb-3">
+              <label for="address">Hall Of Residence</label>
+                {{ form.state }}
+              <!--input type="text" class="form-control" id="address" placeholder="1234 Main St" required-->
+            </div>
+              <div class="mb-3">
+              <label for="address">Address</label>
+                {{ form.address }}
+              <!--input type="text" class="form-control" id="address" placeholder="1234 Main St" required-->
+            </div>
+            <h4 class="mb-3">Payment</h4>
+            <div class="d-block my-3">
+                {% for value, name in form.fields.Payment_option.choices %}
+                {% if messages %}
+                <ul class="messages text-center" style="margin-top: 1rem">
+                    {% for message in messages %}
+                    <li class="alert-danger alert-dismissible" style=""><p style="color:black">{{ message }}</p></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+              <div class="custom-control custom-radio">
+                <input id="{{name}}" name="payment-method" type="radio" value="{{value}}" class="custom-control-input">
+                <label class="custom-control-label" for="{{name}}">{{name}}</label>
+              </div>
+                {% endfor %}
+            </div>
+              <div style="margin-top: 2rem; margin-bottom:;">
+                <button class="btn btn-warning btn-lg btn-block shadow " type="submit">Proceed to Payment</button>
+                <a class="btn btn-info btn-lg btn-block shadow" href="{% url 'home' %}">Continue Shopping </a>
+              </div>
+          </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  {% endblock %}
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.4/holder.min.js" integrity="sha256-ifihHN6L/pNU1ZQikrAb7CnyMBvisKG3SUAab0F3kVU=" crossorigin="anonymous"></script>
+  </body>
+</html>

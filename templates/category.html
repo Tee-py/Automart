@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block xtra_head_links %}
+<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!--link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" /-->
+{% endblock %}
+
+{% block products %}
+<div class="container shadow bg-white" style="padding: 1rem">
+    <h3 class="h3">{{category.name}}</h3>
+    <main style="display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr))">
+        {% for prod in products %}
+        <div class="prod_card" style="padding: 0.5rem">
+                    <img src="{{prod.img.url}}" style="width: 100%;" alt="product-img">
+                    <div class="prod_info" style="text-align: center">
+                        <strong>{{prod.name}}</strong>
+                        <p style="color: black">#{{prod.price}}</p>
+                        <a href="{% url 'add_to_cart' prod.id %}"><button class="btn btn-info shadow"><i class="fas fa-plus" style="margin-right: 2px;"></i>Add To Cart</button></a>
+                    </div>
+                </div>
+        {% endfor %}
+    </main>
+</div>
+{% endblock %}

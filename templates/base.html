@@ -1,0 +1,171 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+        <!-- Bootstrap CSS CDN -->
+        <!--link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"-->
+        <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,700;1,400" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+        <!-- Scrollbar Custom CSS -->
+        <link href="https://cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css"><!-- Font Awesome JS -->
+        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+		<!-- Bootstrap CSS min. files -->
+        <!--link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"-->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        {% block xtra_head_links %}
+        {% endblock %}
+		<script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+        <!-- <link rel="stylesheet" href="styles/debug.css"> -->
+	</head>
+	<body>
+        <div class="container">
+            <nav class="navbar fixed-top navbar-expand-lg navbar-dark shadow p-3 mb-5 " style="background-color: #0b5aad">
+                <!--button type="button" id="sidebarCollapse" class="btn btn-info" style="background-color: #0b5aad">
+                    <span><i style="color:white; width: 30px" class="fas fa-align-justify"></i></span>
+                </button-->
+                <a class="navbar-brand" href="{% url 'home' %}" style="margin-left: 0rem; font-family: 'Pacifico', cursive; font-size: 25px"><!--img src="{% static 'img/foody4.jpeg' %}" width="50" height="50" class="d-inline-block img-circle" alt="site-logo" style="margin-left: 2rem; margin-right: 0.5rem;"-->AutoMart</a>
+                <button class="navbar-toggler btn-btn-info" id="navBar" style="" type="button" data-target="#navbarResponsive" data-toggle="collapse"  aria-controls="#navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span><i style="color: white; width: 20px" class="fas fa-align-justify"></i></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+				    <div class="search_sec mx-auto">
+					    <form class="form-inline my-2 my-lg-0"  method="get" action="{% url 'search' %}">
+
+      					    <input class="form-control mr-sm-2" name="q" type="search"  placeholder="Search product or categories" aria-label="Search" style="border-radius: 10px; ; opacity:1">
+      					    <button class="btn btn-warning my-2 my-sm-0 shadow" style="border-radius: 5px; " type="submit"><i class="fas fa-search" style="margin-right: 3px; color: #17a2b8"></i>Search</button>
+					    </form>
+				    </div>
+				    <ul class="navbar-nav mx-auto" style="">
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <p class="nav-link" style="color: black; font-family: 'Shadows Into Light', cursive; font-size: 20px">Welcome, {{user.username}}</p>
+                        </li>
+                         <li class="nav-item active" style="margin-top: 2px;">
+                            <a class="nav-link" style="font-family: 'Karla', sans-serif;" href="{% url 'cart_view' %}"><span style=""><i class ="fas fa-cart-arrow-down"  style="margin-right: 0.25rem"></i></span> My Cart</a>
+                        </li>
+                        <li class="nav-item" style="margin-top: 2px;">
+                            <a class="nav-link active" style="font-family: 'Karla', sans-serif;" href="#about_sec">About AutoMart</a>
+                        </li>
+                        <li class="nav-item active" style="">
+                            <a class="nav-link" style="margin-top: 2px; font-family: 'Karla', sans-serif;" href="{% url 'logout' %}"><span style=""><i class =""  style="margin-right: 0.25rem"></i></span> Logout </a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item active" style="margin-top: 2px;">
+                            <a class="nav-link" style="font-family: 'Karla', sans-serif;" href="{% url 'login' %}"><i class="fas fa-user" style="margin-right: 4px"></i>Login</a>
+                        </li>
+                         <li class="nav-item active" style="margin-top: 2px;">
+                            <a class="nav-link" style="font-family: 'Karla', sans-serif;" href="#about_sec">About AutoMart</a>
+                        </li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="wrapper" style="margin-top: 4.3rem;">
+                <nav id="sidebar" class="bg-info" style="margin-top: 0.2rem">
+                    <button class="btn btn-info" id="dismiss" style="margin-top: 0.2rem; margin-bottom: 1rem; margin-left: 1px">
+                        <i style="color: white" class="fas fa-arrow-left"></i>
+                    </button>
+                    <div class="sidebar-header text-center" style="padding: 1rem; color: white">
+                        <h4>Categories</h4>
+                        <hr style="color: white">
+                    </div>
+                    <ul class="list-unstyled components" style="margin-left: 2rem">
+                    {% for cat in all_cat %}
+                        <li class="">
+                            <a href="#" class="" style="color: white">
+                                {{cat.name}}
+                            </a>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </nav>
+                <div id="content" class="is-mobile" style="">
+                       <section class="is-mobile" style="">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                {% block carousel %}
+                                {% endblock %}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                </div>
+            <section class="prod_sec">
+                        {% block products %}
+                        {% endblock %}
+                    </section>
+        </div>
+        <section class="bg-white" id="about_sec" style="margin-top: 0.5rem;">
+            <div class="row" style="padding: 0.5rem;">
+                <div class="col-1"></div>
+                <div class="col-10">
+                    <h3>AutoMart | Your Favourite Online Store For Automobile Parts</h3>
+                    <p style="color: black; font-size: 0.8em; ">AutoMart is a Nigerian based online store for automobile parts ranging from bikes, cars, to tricycles.
+                        It provides you with longlasting and quality automobile parts with up to a year warranty and integrates one of the most secure
+                        online payment systems. Register now and begin your journey with us.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <footer class="page-footer " style="background-color: #0b5aad">
+            <div class="footer-copyright text-center py-3">
+                <div class="container">
+                     <div class="row">
+                        <div class="col-md-12 text-center">
+                            <a href="{% url 'home' %}" style="color: white">Home | </a><a href="#" style="color: white">FAQ | </a><a href="#" style="color: white">Privacy Policy | </a><a href="#" style="color: white">Best Deals | </a><a href="#" style="color: white">Terms & Conditions</a>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                © 2020 Copyright:
+                <a href="#" style="color: white;">Created-by: Tee-py</a>
+            </div>
+        </footer>
+           <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+            <script type="text/javascript">
+                $(document).ready(function () {
+
+                    $("#sidebar").mCustomScrollbar({
+                        theme: "minimal"
+                    });
+
+                    $('#dismiss, .overlay').on('click', function () {
+                        $('#sidebar').removeClass('active');
+                        $('.overlay').removeClass('active');
+                    });
+
+                    $('#sidebarCollapse').on('click', function () {
+                        $('#sidebar').addClass('active');
+                        $('.overlay').addClass('active');
+                        $('.collapse.in').toggleClass('in');
+                        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+                    });
+                });
+            </script>
+    <script>
+        const side = document.querySelector('#sidebarCollapese');
+        const nav = document.querySelector('#nav');
+        side.onclick = () => {
+            return console.log('I was clicked bitch');
+        }
+    </script>
+	</body>
+</html>

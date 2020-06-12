@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<body>
+{% block products %}
+<section class="mini-sec">
+        <div class="container shadow bg-white" style="padding: 1rem; border-radius: 20px">
+            <main style="display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 0.25fr))">
+                {% for prod in products %}
+                <div class="prod_card" style="padding: 0.5rem">
+                    <img src="{{prod.img.url}}" class="img-rounded" style="width: 100%;" alt="product-img">
+                    <div class="prod_info" style="text-align: center">
+                        <strong style="font-size: 15px">{{prod.name}}</strong>
+                        <p style="color: black; ">#{{prod.price}}</p>
+                        <a href="{% url 'add_to_cart' prod.id %}"><button class="btn btn-info shadow"><i class="fas fa-plus" style="margin-right: 2px;"></i>Add To Cart</button></a>
+                    </div>
+                </div>
+                {% empty %}
+                    <p style="color: black">Product name: {{q}} not found</p>
+                {% endfor %}
+            </main>
+        </div>
+    </section>
+{% endblock %}
+</body>
